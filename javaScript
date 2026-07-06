@@ -1,0 +1,43 @@
+let tamanhoSenha = 12;
+const charCountEl = document.getElementById('charCount');
+const senhaInput = document.getElementById('senhaInput');
+const statusForca = document.getElementById('statusForca');
+
+document.getElementById('btnMenos').addEventListener('click', () => {
+    if (tamanhoSenha > 6) {
+        tamanhoSenha--;
+        charCountEl.innerText = tamanhoSenha;
+    }
+});
+
+document.getElementById('btnMais').addEventListener('click', () => {
+    if (tamanhoSenha < 30) {
+        tamanhoSenha++;
+        charCountEl.innerText = tamanhoSenha;
+    }
+});
+
+document.getElementById('btnGerar').addEventListener('click', () => {
+    const caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+    let resultado = "";
+    
+    for (let i = 0; i < tamanhoSenha; i++) {
+        const randomIndex = Math.floor(Math.random() * caracteres.length);
+        resultado += caracteres.charAt(randomIndex);
+    }
+    
+    senhaInput.value = resultado;
+    atualizarForca(tamanhoSenha)
+});
+function atualizarForca(tamanho) {
+    if (tamanho < 10) {
+        statusForca.innerText = "Fraca";
+        statusForca.className = "fraca";
+    } else if (tamanho >= 10 && tamanho < 14) {
+        statusForca.innerText = "Média";
+        statusForca.className = "media";
+    } else {
+        statusForca.innerText = "Forte";
+        statusForca.className = "forte";
+    }
+}
